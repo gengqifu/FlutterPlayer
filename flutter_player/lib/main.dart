@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -49,6 +50,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _initAudioPlayer();
+  }
+
+  void _initAudioPlayer() {
+    AudioCache player = AudioCache();
+    player.play('sounds/Beyond - 真的爱你.mp3');
+    //循环播放
+    player.loop('sounds/Beyond - 真的爱你.mp3');
+  }
 
   void _incrementCounter() {
     setState(() {
