@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Player'),
+      home: const MyHomePage(title: '最爱的蓉儿'),
     );
   }
 }
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Image.asset(
-              'images/lake.jpeg',
+              'images/rong.jpeg',
               width: 600.0,
               height: 740.0,
               fit: BoxFit.cover,
