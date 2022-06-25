@@ -1,4 +1,5 @@
 import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -49,7 +50,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  late AudioCache _audioCache;
+  late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
@@ -58,21 +60,36 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _initAudioPlayer() {
-    AudioCache player = AudioCache();
-    player.play('sounds/Beyond - 真的爱你.mp3');
+    _audioCache = AudioCache();
+    _audioPlayer = AudioPlayer();
+    _audioCache.fixedPlayer = _audioPlayer;
+    _audioCache.play('sounds/Beyond - 真的爱你.mp3');
     //循环播放
-    player.loop('sounds/Beyond - 真的爱你.mp3');
+    _audioCache.loop('sounds/Beyond - 真的爱你.mp3');
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  //开始播放
+  void _play() {
+    final result = _audioCache.play('sounds/Beyond - 真的爱你.mp3');
+    if (result == 1) {
+      print('succes');
+    }
+  }
+
+  //暂停
+  void _pause() {
+    final result = _audioPlayer.pause();
+    if (result == 1) {
+      print('succes');
+    }
+  }
+
+  //停止播放
+  _stop() {
+    final result = _audioPlayer.stop();
+    if (result == 1) {
+      print('succes');
+    }
   }
 
   @override
@@ -117,9 +134,31 @@ class _MyHomePageState extends State<MyHomePage> {
             fit: BoxFit.cover,
           ),
           new Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            new Icon(Icons.play_arrow, color: Colors.blue, size: 30),
-            new Icon(Icons.pause, color: Colors.blue, size: 30),
-            new Icon(Icons.stop, color: Colors.blue, size: 30),
+            new Container(
+              padding: new EdgeInsets.all(0.0),
+              child: new IconButton(
+                icon:
+                    (new Icon(Icons.play_arrow, color: Colors.blue, size: 30)),
+                color: Colors.blue,
+                onPressed: _play,
+              ),
+            ),
+            new Container(
+              padding: new EdgeInsets.all(0.0),
+              child: new IconButton(
+                icon: (new Icon(Icons.pause, color: Colors.blue, size: 30)),
+                color: Colors.blue,
+                onPressed: _pause,
+              ),
+            ),
+            new Container(
+              padding: new EdgeInsets.all(0.0),
+              child: new IconButton(
+                icon: (new Icon(Icons.stop, color: Colors.blue, size: 30)),
+                color: Colors.blue,
+                onPressed: _stop,
+              ),
+            ),
           ]),
         ],
       ),
